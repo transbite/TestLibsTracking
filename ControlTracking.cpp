@@ -5,20 +5,23 @@ ControlTracking::ControlTracking(QObject *parent) : QObject(parent)
     m_newtracker = vtkNDITracker::New();
 
 
-    //active tools detected on ports 0, 1, 2
-    //polaris rom tools could be loaded on 3, 4 ,5...
+//    For the vtkNDITracker, the ports start at index "0" and the first three
+//    ports (0, 1, 2) are reserved for active/wired tools.  So you need to load the
+//    sroms into ports (3, 4, 5) for passive tools.
 
     for(int i = 0; i < VTK_NDI_NTOOLS; i++)
     {
         m_toolPort[i] = i;
     }
-
 }
 
-void ControlTracking::init(const char* COMPort)
+int ControlTracking::init(const char* COMPort)
 {
     m_newtracker->SetSerialDevice(COMPort);
-    m_newtracker->Probe();
+    //Returns 1 if the tracking system was found and is working.
+    int connection = m_newtracker->Probe();
+
+    return connection;
 }
 
 void ControlTracking::startTracking()
@@ -47,12 +50,10 @@ int ControlTracking::getTrackingStatus()
     return m_newtracker->IsTracking();
 }
 
-
 void ControlTracking::loadRomFile(int tool, const char*filename)
 {
     m_newtracker->LoadVirtualSROM(tool,filename);
 }
-
 
 int ControlTracking::getToolPort(int tool)
 {
@@ -64,34 +65,78 @@ int ControlTracking::getToolPort(int tool)
         return -1;
 }
 
-double* ControlTracking::getToolPositions(int tool)
+double* ControlTracking::getToolPositionOrientation(int tool)
 {
 
     m_newtracker->Update();
 
     vtkTrackerTool* getTool = m_newtracker->GetTool(tool);
     vtkTransform *toolTransform = getTool->GetTransform();
-    double position[3] = { 0.0, 0.0, 0.0 };
-    toolTransform->TransformPoint(position, position);
+    double position_t[3] = { 0.0, 0.0, 0.0 };
+    toolTransform->TransformPoint(position_t, position_t);
+
+    double position[3];
+    double orientation[3];
+    double PositionsOrientations[6] ={ 0.0, 0.0, 0.0,0.0, 0.0, 0.0 };;
+    toolTransform->GetPosition(position);
+    toolTransform->GetOrientation(orientation);
+    for (int i = 0; i < 3; i++ )
+    {
+        PositionsOrientations[i] = position[i];
+        PositionsOrientations[i+2] = orientation[i];
+    }
+
+
     if (getTool->IsMissing())
      {
         qDebug() << "MISSING" << endl;
      }
     else
     {
-        qDebug() << position[0] << " " << position[1] << " " << position[2] << endl;
+
+        qDebug() << PositionsOrientations[0] << " " << PositionsOrientations[1] << " " << PositionsOrientations[2];
+        qDebug() << PositionsOrientations[3] <<" " << PositionsOrientations[4] <<  " " << PositionsOrientations[5] << endl;
     }
 
-    return position;
+    return PositionsOrientations;
+
 }
 
-int ControlTracking::getUpdateRate()
+int ControlTracking::getBaudRate()
 {
-    return m_newtracker->GetInternalUpdateRate();
+    return m_newtracker->GetBaudRate();
 }
 
 QString ControlTracking::commandResponse(const char* commandStr)
 {
     return m_newtracker->Command(commandStr);
 
+}
+
+QString ControlTracking::getToolSerialNumber(int tool)
+{
+    vtkTrackerTool* getTool = m_newtracker->GetTool(tool);
+
+    QString toolSerialNumber = getTool->GetToolSerialNumber();
+
+
+    return toolSerialNumber;
+}
+
+QString ControlTracking::getToolManufacturer(int tool)
+{
+    vtkTrackerTool* getTool = m_newtracker->GetTool(tool);
+
+    QString toolManufacturer = getTool->GetToolManufacturer();
+
+    return toolManufacturer ;
+}
+
+QString ControlTracking::getToolType(int tool)
+{
+    vtkTrackerTool* getTool = m_newtracker->GetTool(tool);
+
+    QString toolType = getTool->GetToolType();
+
+    return toolType ;
 }

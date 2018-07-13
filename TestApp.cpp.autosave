@@ -26,18 +26,14 @@ TestApp::TestApp(QWidget *parent) :
 
     //newtracker = vtkNDITracker::New();
 
-
     //tool=3;tool1=4;tool2=5;
 
     //filename = "c:\\Users\\User\\work\\projects\\tests\\AIGSApp\\AIGSApp\\AIGSApp\\ToolsROM\\8700338.rom";
     //filename1 = "c:\\Users\\User\\work\\projects\\tests\\AIGSApp\\AIGSApp\\AIGSApp\\ToolsROM\\8700340.rom";
 
-
     //load roms file for tools
     //newtracker->LoadVirtualSROM(tool,filename);
     //newtracker->LoadVirtualSROM(tool1,filename1);
-
-
 
 }
 void TestApp::init()

@@ -15,17 +15,21 @@ class ControlTracking : public QObject
     Q_OBJECT
 public:
     explicit ControlTracking(QObject *parent = 0);
-    void init(const char* COMPort);
+    int init(const char* COMPort);
     void startTracking();
     void stopTracking();
+    //int getNumberOfActiveTools();
     void loadRomFile(int tool, const char *);
     QString getTrackerVersion();
     int getSerialPort();
     int getTrackingStatus();
     int getToolPort(int tool);
-    double *getToolPositions(int tool);
-    int getUpdateRate();
+    double *getToolPositionOrientation(int tool);
+    int getBaudRate();
     QString commandResponse(const char*);
+    QString getToolSerialNumber(int tool);
+    QString getToolManufacturer(int tool);
+    QString getToolType(int tool);
 
 
 signals:
