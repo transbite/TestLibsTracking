@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "vtkNDITracker.h"
 #include "vtkTracker.h"
-#include "vtkTransform.h"
+#include <vtkTransform.h>
 #include "vtkTrackerTool.h"
 #include "ControlTracking.h"
 
@@ -30,16 +30,7 @@ public slots:
 
 private:
     Ui::TestApp *ui;
-    vtkNDITracker* newtracker;
     ControlTracking *m_controlTracking;
-    int x;
-    int tool;
-    const char * filename;
-    int tool1;
-    const char * filename1;
-    int tool2;
-    const char * filename2;
-    int beepn;
 };
 
 #endif // TESTAPP_H

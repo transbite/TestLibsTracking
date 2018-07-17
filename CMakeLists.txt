@@ -9,7 +9,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL REQUIRED)
-find_package(Qt5Sql REQUIRED)
+#find_package(Qt5Sql REQUIRED)
 #find_package(Qt5WebKitWidgets REQUIRED)
 find_package(Qt5Concurrent REQUIRED)
 
@@ -49,5 +49,5 @@ target_link_libraries(AIGSApp ${AIGS_LIBRARIES})
 
 
 #qt5_use_modules(AIGSApp Widgets OpenGL Sql WebKitWidgets Concurrent)
-qt5_use_modules(AIGSApp Widgets OpenGL Sql Concurrent)
+qt5_use_modules(AIGSApp Widgets OpenGL Concurrent SerialPort)
 

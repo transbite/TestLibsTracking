@@ -15,13 +15,20 @@ ControlTracking::ControlTracking(QObject *parent) : QObject(parent)
     }
 }
 
-int ControlTracking::init(const char* COMPort)
+int ControlTracking::init()
 {
-    m_newtracker->SetSerialDevice(COMPort);
-    //Returns 1 if the tracking system was found and is working.
-    int connection = m_newtracker->Probe();
-
-    return connection;
+    const auto infos = QSerialPortInfo::availablePorts();
+    for (const QSerialPortInfo &info : infos)
+    {
+        if (QString::compare(info.manufacturer(), "ndi", Qt::CaseInsensitive) == 0)
+        {
+            QString port = info.portName() + ":";
+            m_newtracker->SetSerialDevice(port.toStdString().c_str());
+            //Returns 1 if the tracking system was found and is working.
+            return m_newtracker->Probe();
+        }
+    }
+    return 0;
 }
 
 void ControlTracking::startTracking()

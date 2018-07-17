@@ -7,6 +7,7 @@
 #include "vtkTransform.h"
 #include "vtkTrackerTool.h"
 #include <QDebug>
+#include <QSerialPortInfo>
 
 #define VTK_NDI_NTOOLS 12
 
@@ -15,7 +16,7 @@ class ControlTracking : public QObject
     Q_OBJECT
 public:
     explicit ControlTracking(QObject *parent = 0);
-    int init(const char* COMPort);
+    int init();
     void startTracking();
     void stopTracking();
     //int getNumberOfActiveTools();

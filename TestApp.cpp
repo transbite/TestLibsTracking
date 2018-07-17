@@ -17,37 +17,22 @@ TestApp::TestApp(QWidget *parent) :
 
     m_controlTracking = new ControlTracking();
 
-    connect(ui->initBut, &QPushButton::clicked, this, &TestApp::init);
-    connect(ui->stopBut, &QPushButton::clicked, this, &TestApp::stop);
-    connect(ui->positionBut, &QPushButton::clicked, this, &TestApp::positions);
-    connect(ui->startBut, &QPushButton::clicked, this, &TestApp::start);
-    connect(ui->sendCmdBut, &QPushButton::clicked, this, &TestApp::command);
-
-
-    //newtracker = vtkNDITracker::New();
-
-
-    //tool=3;tool1=4;tool2=5;
-
-    //filename = "c:\\Users\\User\\work\\projects\\tests\\AIGSApp\\AIGSApp\\AIGSApp\\ToolsROM\\8700338.rom";
-    //filename1 = "c:\\Users\\User\\work\\projects\\tests\\AIGSApp\\AIGSApp\\AIGSApp\\ToolsROM\\8700340.rom";
-
-
-    //load roms file for tools
-    //newtracker->LoadVirtualSROM(tool,filename);
-    //newtracker->LoadVirtualSROM(tool1,filename1);
-
-
+    connect(ui->initButton, &QPushButton::clicked, this, &TestApp::init);
+    connect(ui->stopButton, &QPushButton::clicked, this, &TestApp::stop);
+    connect(ui->positionsButton, &QPushButton::clicked, this, &TestApp::positions);
+    connect(ui->startButton, &QPushButton::clicked, this, &TestApp::start);
+    connect(ui->sendCmdButton, &QPushButton::clicked, this, &TestApp::command);
 
 }
 void TestApp::init()
 {
-    m_controlTracking->init("COM5:");
+    m_controlTracking->init();
 }
 
 TestApp::~TestApp()
 {
     delete ui;
+    delete m_controlTracking;
 }
 
 void TestApp::stop()
