@@ -17,7 +17,7 @@ ControlTracking::ControlTracking(QObject *parent) : QObject(parent)
 
 int ControlTracking::init()
 {
-    const auto infos = QSerialPortInfo::availablePorts();
+    /*const auto infos = QSerialPortInfo::availablePorts();
     for (const QSerialPortInfo &info : infos)
     {
         if (QString::compare(info.manufacturer(), "ndi", Qt::CaseInsensitive) == 0)
@@ -27,8 +27,8 @@ int ControlTracking::init()
             //Returns 1 if the tracking system was found and is working.
             return m_newtracker->Probe();
         }
-    }
-    return 0;
+    }*/
+    return m_newtracker->Probe();
 }
 
 void ControlTracking::startTracking()
@@ -84,7 +84,7 @@ double* ControlTracking::getToolPositionOrientation(int tool)
 
     double position[3];
     double orientation[3];
-    double PositionsOrientations[6] ={ 0.0, 0.0, 0.0,0.0, 0.0, 0.0 };;
+    double PositionsOrientations[6] ={ 0.0, 0.0, 0.0,0.0, 0.0, 0.0 };
     toolTransform->GetPosition(position);
     toolTransform->GetOrientation(orientation);
     for (int i = 0; i < 3; i++ )
@@ -136,7 +136,7 @@ QString ControlTracking::getToolManufacturer(int tool)
 
     QString toolManufacturer = getTool->GetToolManufacturer();
 
-    return toolManufacturer ;
+    return toolManufacturer;
 }
 
 QString ControlTracking::getToolType(int tool)
