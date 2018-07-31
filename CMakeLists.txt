@@ -34,7 +34,7 @@ if(UNIX)
 ##endif()
 endif()
 
-set(SRCS main.cpp TestApp.cpp TestApp.h ControlTracking.cpp ControlTracking.h
+set(SRCS globals.h main.cpp TestApp.cpp TestApp.h ControlTracking.cpp ControlTracking.h
    )
 set(FRMS
     TestApp.ui   

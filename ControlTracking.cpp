@@ -28,6 +28,7 @@ int ControlTracking::init()
             return m_newtracker->Probe();
         }
     }*/
+    qDebug() << "[INIT]";
     return m_newtracker->Probe();
 }
 

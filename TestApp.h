@@ -7,9 +7,6 @@
 #include <vtkTransform.h>
 #include "vtkTrackerTool.h"
 #include "ControlTracking.h"
-#include <QtWidgets/QListWidget>
-
-static QListWidget *logWidget = nullptr;
 
 namespace Ui {
 class TestApp;

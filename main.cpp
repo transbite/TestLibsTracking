@@ -1,9 +1,10 @@
 #include "TestApp.h"
+#include "globals.h"
 #include <QApplication>
 #include <QDebug>
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-  {
+{
 
     if (logWidget == nullptr)
     {
@@ -11,14 +12,28 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     }
     else
     {
-        QByteArray localMsg = msg.toLocal8Bit();
-        switch (type) {
+        QString message;
+        switch (type)
+        {
         case QtDebugMsg:
-            logWidget->addItem(msg);
+            message = QString("[DEBUG] ") + msg;
+            break;
+        case QtInfoMsg:
+            message = QString("[INFO] ") + msg;
+            break;
+        case QtWarningMsg:
+            message = QString("[WARNING] ") + msg;
+            break;
+        case QtCriticalMsg:
+            message = QString("[CRITICAL] ") + msg;
+            break;
+        case QtFatalMsg:
+            message = QString("[FATAL] ") + msg;
             break;
         }
+        logWidget->addItem(message);
     }
-  }
+}
 
 int main(int argc, char *argv[])
 {

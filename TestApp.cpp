@@ -1,8 +1,11 @@
 #include "TestApp.h"
+#include "globals.h"
 #include "ui_TestApp.h"
 #include <QDebug>
 #include <QThread>
 #include <QMessageBox>
+
+QListWidget *logWidget;
 
 TestApp::TestApp(QWidget *parent) :
     QMainWindow(parent),
