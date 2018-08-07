@@ -8,9 +8,14 @@
 #include "vtkTrackerTool.h"
 #include "ControlTracking.h"
 
+#include <vtkSmartPointer.h>
+
 namespace Ui {
 class TestApp;
 }
+
+class vtkRenderer;
+
 ///
 /// \brief The TestApp class
 ///
@@ -40,6 +45,8 @@ public slots:
 private:
     Ui::TestApp *ui;
     ControlTracking *m_controlTracking;
+
+    //vtkSmartPointer<vtkRenderer> m_renderer;
 };
 
 #endif // TESTAPP_H

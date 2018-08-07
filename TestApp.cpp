@@ -5,6 +5,10 @@
 #include <QThread>
 #include <QMessageBox>
 
+#include <QVTKOpenGLWidget.h>
+#include <vtkRenderer.h>
+#include <vtkGenericOpenGLRenderWindow.h>
+
 QListWidget *logWidget;
 
 TestApp::TestApp(QWidget *parent) :
@@ -13,6 +17,13 @@ TestApp::TestApp(QWidget *parent) :
 
 {
     ui->setupUi(this);
+
+    //vtk - qt setup
+//    vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+//    ui->vtkWidget->SetRenderWindow(renderWindow);
+//    m_renderer = vtkSmartPointer<vtkRenderer>::New();
+//    renderWindow->AddRenderer(m_renderer);
+
     logWidget = ui->logText;
     ui->stopButton->setEnabled(false);
     ui->positionsButton->setEnabled(false);

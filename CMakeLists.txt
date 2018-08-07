@@ -12,6 +12,7 @@ find_package(Qt5OpenGL REQUIRED)
 #find_package(Qt5Sql REQUIRED)
 #find_package(Qt5WebKitWidgets REQUIRED)
 find_package(Qt5Concurrent REQUIRED)
+find_package(Qt5SerialPort REQUIRED)
 
 if(Qt5Widgets_FOUND)
     message(STATUS "VTKTests - Qt5Widgets found...")
@@ -35,6 +36,7 @@ if(UNIX)
 endif()
 
 set(SRCS globals.h main.cpp TestApp.cpp TestApp.h ControlTracking.cpp ControlTracking.h
+    VTKSceneWidget.h VTKSceneWidget.cpp
    )
 set(FRMS
     TestApp.ui   
@@ -46,8 +48,8 @@ add_executable(AIGSApp MACOSX_BUNDLE ${SRCS} ${FRMS_HDRS})
 
 target_link_libraries(AIGSApp ${VTK_LIBRARIES})
 target_link_libraries(AIGSApp ${AIGS_LIBRARIES})
-
+target_link_libraries(AIGSApp Qt5::Widgets Qt5::OpenGL Qt5::Concurrent Qt5::SerialPort)
 
 #qt5_use_modules(AIGSApp Widgets OpenGL Sql WebKitWidgets Concurrent)
-qt5_use_modules(AIGSApp Widgets OpenGL Concurrent SerialPort)
+#qt5_use_modules(AIGSApp Widgets OpenGL Concurrent SerialPort)
 
